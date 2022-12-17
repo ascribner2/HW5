@@ -1,0 +1,89 @@
+<!--
+Name: Aidan Scribner
+Email: Aidan_Scribner@student.uml.edu
+Student ID: 01808608
+-->
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- JQuery CDN -->
+    <script src="https://code.jquery.com/jquery-3.6.1.js" integrity="sha256-3zlB5s2uwoUzrXK3BT7AX3FyvojsraNFxCc2vC/7pNI=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.5/dist/jquery.validate.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.5/dist/additional-methods.min.js"></script>
+    <script src="https://releases.jquery.com/git/ui/jquery-ui-git.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
+
+    <link href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/themes/smoothness/jquery-ui.css" rel="stylesheet">
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+    
+    <title>Scrabble</title>
+
+    <style>
+        #game_board {
+            background-image: url("Scrabble_Board_OneLine.png");
+            width: 1129px;
+            height: 80px;
+        }
+        #tile_rack {
+            background-image: url("tile_holder.png");
+            width: 640px;
+            height: 182px;
+        }
+        .Tile {
+            background-color: aqua;
+            width: 67px;
+            height: 67px;
+            display: inline-block;
+        }
+        .Slot {
+            background-color:blanchedalmond;
+            width: 67px;
+            height: 67px;
+            display: inline-block;
+        }
+    </style>
+
+  </head>
+  <body>
+    <div class="container">
+        <div class="row">
+            <h1>Scrabble</h1>
+        </div>
+        <div class="row">
+            <h3>Score: 0</h3>
+        </div>
+        <div class="row">
+            <div id="game_board" class="col-12">
+                <div id="game_board_slot-1" class="Slot"></div>
+                <div id="game_board_slot-2" class="Slot"></div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-3">
+                <input id="restartBtn" type="submit" value="Restart"/>
+            </div>
+            <div class="col-3">
+                <input id="nextBtn" type="button" value="Next Word"/>
+            </div>
+        </div>
+        <div class="row">
+            <div id="tile_rack" class="col-12">
+                <div id="tile-1" class="Tile"></div>
+                <div id="tile-2" class="Tile"></div>
+                <div id="tile-3" class="Tile"></div>
+                <div id="tile-4" class="Tile"></div>
+                <div id="tile-5" class="Tile"></div>
+                <div id="tile-6" class="Tile"></div>
+                <div id="tile-7" class="Tile"></div>
+            </div>
+        </div>
+    </div>
+    <script src="indexJS.js"></script>
+  </body>
+</html>
