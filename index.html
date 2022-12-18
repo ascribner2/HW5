@@ -29,24 +29,80 @@ Student ID: 01808608
             background-image: url("Scrabble_Board_OneLine.png");
             width: 1129px;
             height: 80px;
+            position: relative;
         }
         #tile_rack {
             background-image: url("tile_holder.png");
             width: 640px;
             height: 182px;
+            padding-left: 100px;
+            padding-top: 73px;
         }
         .Tile {
-            background-color: aqua;
-            width: 67px;
+            width: 61px;
             height: 67px;
             display: inline-block;
+            z-index: 2;
         }
+
+        /*  */
         .Slot {
             background-color:blanchedalmond;
             width: 67px;
             height: 67px;
             display: inline-block;
         }
+
+        .DoubleSlot {
+            background-color:brown;
+            width: 67px;
+            height: 67px;
+            display: inline-block;
+        }
+
+        /* game_board slots */
+        #game_board_slot-1 {
+            position: absolute;
+            top: 7.5px;
+            left: 5.5px;
+        }
+
+        #game_board_slot-2 {
+            position: absolute;
+            top: 7.5px;
+            left: 80px;
+        }
+
+        #game_board_slot-3 {
+            position: absolute;
+            top: 7.5px;
+            left: 155.5px;
+        }
+
+        #game_board_slot-4 {
+            position: absolute;
+            top: 7.5px;
+            left: 230.5px;
+        }
+
+        #game_board_slot-5 {
+            position: absolute;
+            top: 7.5px;
+            left: 305.5px;
+        }
+
+        #game_board_slot-6 {
+            position: absolute;
+            top: 7.5px;
+            left: 379.5px;
+        }
+
+        #game_board_slot-7 {
+            position: absolute;
+            top: 7.5px;
+            left: 454px;
+        }
+
     </style>
 
   </head>
@@ -56,12 +112,25 @@ Student ID: 01808608
             <h1>Scrabble</h1>
         </div>
         <div class="row">
-            <h3>Score: 0</h3>
+            <h3 id="Score">Score: 0</h3>
         </div>
         <div class="row">
             <div id="game_board" class="col-12">
                 <div id="game_board_slot-1" class="Slot"></div>
                 <div id="game_board_slot-2" class="Slot"></div>
+                <div id="game_board_slot-3" class="DoubleSlot"></div>
+                <div id="game_board_slot-4" class="Slot"></div>
+                <div id="game_board_slot-5" class="Slot"></div>
+                <div id="game_board_slot-6" class="Slot"></div>
+                <div id="game_board_slot-7" class="DoubleSlot"></div>
+               <!-- <div id="game_board_slot-8" class="Slot"></div>
+                <div id="game_board_slot-9" class="Slot"></div>
+                <div id="game_board_slot-10" class="Slot"></div>
+                <div id="game_board_slot-11" class="Slot"></div>
+                <div id="game_board_slot-12" class="Slot"></div>
+                <div id="game_board_slot-13" class="Slot"></div>
+                <div id="game_board_slot-14" class="Slot"></div>
+                <div id="game_board_slot-15" class="Slot"></div>-->
             </div>
         </div>
         <div class="row">
@@ -69,18 +138,12 @@ Student ID: 01808608
                 <input id="restartBtn" type="submit" value="Restart"/>
             </div>
             <div class="col-3">
-                <input id="nextBtn" type="button" value="Next Word"/>
+                <input id="nextBtn" type="button" value="Next Word" onclick="next_word()"/>
             </div>
         </div>
         <div class="row">
             <div id="tile_rack" class="col-12">
-                <div id="tile-1" class="Tile"></div>
-                <div id="tile-2" class="Tile"></div>
-                <div id="tile-3" class="Tile"></div>
-                <div id="tile-4" class="Tile"></div>
-                <div id="tile-5" class="Tile"></div>
-                <div id="tile-6" class="Tile"></div>
-                <div id="tile-7" class="Tile"></div>
+                
             </div>
         </div>
     </div>
