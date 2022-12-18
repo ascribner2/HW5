@@ -3,6 +3,7 @@ const map = new Map(); //new map object
 const lettersLeft = []; //makes a programmic "bag" of tiles to refer to for picking random tiles from 
 const rackOfLetters = [] //rack that holds the letters
 var score = 0; //game score
+const currentWord = [' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ']
 
 //makes a map of all of the letters with their information in a object
 map.set('a',{value: 1, tiles: 9, background: "Scrabble_Tile_A.jpg"});
@@ -54,57 +55,61 @@ for(let i = 0; i < 7; i++){
     rackOfLetters[i] = getRandomLetter();
     let letter_value = rackOfLetters[i];
     let letter_bg = map.get(rackOfLetters[i]).background;
-    $('#tile_rack').append(`<div style='background-image: url("tiles/${letter_bg}")' class='Tile' value='${letter_value}'></div>`);
+    $('#tile_rack').append(`<div style='background-image: url("tiles/${letter_bg}")' class='Tile onRack' value='${letter_value}'></div>`);
 }
 
+$('#TilesLeft').html(`Tiles Left: ${lettersLeft.length}`);
+
 $('.Tile').draggable({ revert: "invalid" }); //draggable for all the tiles
-$('.Slot').droppable(); //normal board space
-$('.DoubleSlot').droppable(); //double board space
-$('#tile_rack').droppable(); // so you can put a tile back on the rack
+$('.Slot').droppable({
+    accept: '.Tile:not(.visited)'
+}); //normal board space
+$('.DoubleSlot').droppable({
+    accept: '.Tile:not(.visited)'
+}); //double board space
+$('#tile_rack').droppable({
+    accept: '.Tile:not(.onRack)'
+}); // so you can put a tile back on the rack
 
 //when a tile is drop on a normal space
 $('.Slot').on("drop", function(event, ui){
-    $(this).droppable('option', 'accept', ui.draggable); //make it so only one tile can be placed on this slot
+    $(this).droppable('option', 'accept', [ui.draggable, ':not(.visited)']); //make it so only one tile can be placed on this slot
     let tile = ui.draggable
     let slot = $(this)
+    tile.removeClass('onRack') //removes the onRack flag so it canbe reracked
+    tile.addClass('visited'); //if the tile already visited a tile
     rackOfLetters.splice(rackOfLetters.indexOf(tile.attr('value')), 1); //remove it from the rack array that keep track of the tiles
     tile.detach().css({top:0, left:0,}).appendTo(slot); //removes from the rack and appends to the slot its drop on so it snaps to it
     score += parseInt(map.get(tile.attr('value')).value); //add tp score
     $('#Score').html(`Score: ${score}`); //updates html of the score
-});
-
-//when a tile is removed from the slot
-$('.Slot').on("dropout", function(event, ui){
-    $(this).droppable('option', 'accept', '.Tile'); //reallows the slot to take a tile
+    updateWord(); //update the word on the board
 });
 
 //when a tile is drop on a double space
 $('.DoubleSlot').on("drop", function(event, ui){
-    $(this).droppable('option', 'accept', ui.draggable); //make it so only one tile can be placed on this slot
+    $(this).droppable('option', 'accept', [ui.draggable, ':not(.visited)']); //make it so only one tile can be placed on this slot
     let tile = ui.draggable
     let slot = $(this)
+    tile.removeClass('onRack') //removes the onRack flag so it canbe reracked
+    tile.addClass('visited'); //if the tile already visited a tile
     rackOfLetters.splice(rackOfLetters.indexOf(tile.attr('value')), 1); //remove it from the rack array that keep track of the tiles
     tile.detach().css({top:0, left:0,}).appendTo(slot); //removes from the rack and appends to the slot its drop on so it snaps to it
     score += parseInt(map.get(tile.attr('value')).value) * 2; //add to score
     $('#Score').html(`Score: ${score}`);  //update the html of the score
-    tile.attr('value', tile.attr('value') + ' double') //set double flag
-});
-
-//when a tile is removed from the slot
-$('.DoubleSlot').on("dropout", function(event, ui){
-    $(this).droppable('option', 'accept', '.Tile'); //reallows the slot to take a tile
+    tile.addClass('double') //set double flag
+    updateWord(); //update the word on the board
 });
 
 $('#tile_rack').on("drop", function(event, ui){
     let tile = ui.draggable
     let rack = $(this)
     tile.detach().css({top:0, left:0,}).appendTo(rack); //removes from the slot and appends to the rack
-
-    let tile_val = tile.attr('value');
+    tile.removeClass('visited') //returned to the rack
+    tile.addClass('onRack') //adds the onRack flag to make sure the user can't tank the score
 
     //checks if the tile came from a double spot or not so that it update accordingly
-    if(tile_val.includes('double',0)) {
-        tile.attr('value', tile.attr('value').replace(' double',''))
+    if(tile.hasClass('double')) {
+        tile.removeClass('double') //removes the double flag
         rackOfLetters.push(tile.attr('value'));
         score -= parseInt(map.get(tile.attr('value')).value) * 2;
     } else {
@@ -113,10 +118,16 @@ $('#tile_rack').on("drop", function(event, ui){
     }
 
     $('#Score').html(`Score: ${score}`); //updates score
+    updateWord(); //update the word on the board
 });
 
 //runs when the next word button is pressed
 function next_word(){
+    $('.Slot > div').remove(); //clears previous tiles
+    $('.Slot').droppable('option', 'accept', '.Tile:not(.visited)'); //resets board acceptable slots
+    $('.DoubleSlot > div').remove(); //clears previous tiles
+    $('.DoubleSlot').droppable('option', 'accept', '.Tile:not(.visited)'); //resets board acceptable slots
+
     //fills in the blank spots in the rack and adds the tiles to the screen
     let spots = rackOfLetters.length
     for(let i = 0; i < 7 - spots; i++){
@@ -128,4 +139,21 @@ function next_word(){
         }
     }
     $('.Tile').draggable({ revert: "invalid" });
+    $('#TilesLeft').html(`Tiles Left: ${lettersLeft.length}`);
+    updateWord(); //update the word on the board
+}
+
+//function to iterate over all the slots and check if there is a letter or not
+function updateWord() {
+    let word = ''
+    for(i = 1; i <= 15; i++){
+        if($(`#game_board_slot-${i}`).children('.Tile').length > 0){
+            word += $(`#game_board_slot-${i}`).children('.Tile').attr('value')
+        } else {
+            word += ' ';
+            $(`#game_board_slot-${i}`).droppable('option', 'accept', '.Tile:not(.visited)') //reallows the slot to take a tile
+        }
+    }
+    
+    $('#currentWord').html(`Word: ${word.toString()}`); //updates the current words text
 }

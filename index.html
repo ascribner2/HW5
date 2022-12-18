@@ -29,6 +29,7 @@ Student ID: 01808608
             background-image: url("Scrabble_Board_OneLine.png");
             width: 1129px;
             height: 80px;
+            min-width: 1129px;
             position: relative;
         }
         #tile_rack {
@@ -37,6 +38,7 @@ Student ID: 01808608
             height: 182px;
             padding-left: 100px;
             padding-top: 73px;
+            min-width: 640px;
         }
         .Tile {
             width: 61px;
@@ -45,16 +47,14 @@ Student ID: 01808608
             z-index: 2;
         }
 
-        /*  */
+        /* styling for the droppable slots  */
         .Slot {
-            background-color:blanchedalmond;
             width: 67px;
             height: 67px;
             display: inline-block;
         }
 
         .DoubleSlot {
-            background-color:brown;
             width: 67px;
             height: 67px;
             display: inline-block;
@@ -103,6 +103,54 @@ Student ID: 01808608
             left: 454px;
         }
 
+        #game_board_slot-8 {
+            position: absolute;
+            top: 7.5px;
+            left: 527px;
+        }
+
+        #game_board_slot-9 {
+            position: absolute;
+            top: 7.5px;
+            left: 602.4px;
+        }
+
+        #game_board_slot-10 {
+            position: absolute;
+            top: 7.5px;
+            left: 677px;
+        }
+
+        #game_board_slot-11 {
+            position: absolute;
+            top: 7.5px;
+            left: 752px;
+        }
+
+        #game_board_slot-12 {
+            position: absolute;
+            top: 7.5px;
+            left: 828px;
+        }
+
+        #game_board_slot-13 {
+            position: absolute;
+            top: 7.5px;
+            left: 904px;
+        }
+
+        #game_board_slot-14 {
+            position: absolute;
+            top: 7.5px;
+            left: 979px;
+        }
+
+        #game_board_slot-15 {
+            position: absolute;
+            top: 7.5px;
+            left: 1054px;
+        }
+
     </style>
 
   </head>
@@ -113,29 +161,31 @@ Student ID: 01808608
         </div>
         <div class="row">
             <h3 id="Score">Score: 0</h3>
+            <h3 id="TilesLeft">Tiles Left: 100</h3>
+            <h3 id="currentWord">Word:</h3>
         </div>
         <div class="row">
             <div id="game_board" class="col-12">
-                <div id="game_board_slot-1" class="Slot"></div>
-                <div id="game_board_slot-2" class="Slot"></div>
-                <div id="game_board_slot-3" class="DoubleSlot"></div>
-                <div id="game_board_slot-4" class="Slot"></div>
-                <div id="game_board_slot-5" class="Slot"></div>
-                <div id="game_board_slot-6" class="Slot"></div>
-                <div id="game_board_slot-7" class="DoubleSlot"></div>
-               <!-- <div id="game_board_slot-8" class="Slot"></div>
-                <div id="game_board_slot-9" class="Slot"></div>
-                <div id="game_board_slot-10" class="Slot"></div>
-                <div id="game_board_slot-11" class="Slot"></div>
-                <div id="game_board_slot-12" class="Slot"></div>
-                <div id="game_board_slot-13" class="Slot"></div>
-                <div id="game_board_slot-14" class="Slot"></div>
-                <div id="game_board_slot-15" class="Slot"></div>-->
+                <div id="game_board_slot-1" class="Slot" value="0"></div>
+                <div id="game_board_slot-2" class="Slot" value="1"></div>
+                <div id="game_board_slot-3" class="DoubleSlot" value="2"></div>
+                <div id="game_board_slot-4" class="Slot" value="3"></div>
+                <div id="game_board_slot-5" class="Slot" value="4"></div>
+                <div id="game_board_slot-6" class="Slot" value="5"></div>
+                <div id="game_board_slot-7" class="DoubleSlot" value="6"></div>
+                <div id="game_board_slot-8" class="Slot" value="7"></div>
+                <div id="game_board_slot-9" class="DoubleSlot" value="8"></div>
+                <div id="game_board_slot-10" class="Slot" value="9"></div>
+                <div id="game_board_slot-11" class="Slot" value="10"></div>
+                <div id="game_board_slot-12" class="Slot" value="11"></div>
+                <div id="game_board_slot-13" class="DoubleSlot" value="12"></div>
+                <div id="game_board_slot-14" class="Slot" value="13"></div>
+                <div id="game_board_slot-15" class="Slot" value="14"></div>
             </div>
         </div>
         <div class="row">
             <div class="col-3">
-                <input id="restartBtn" type="submit" value="Restart"/>
+                <input id="restartBtn" type="button" value="Restart" onclick="window.location.reload()"/>
             </div>
             <div class="col-3">
                 <input id="nextBtn" type="button" value="Next Word" onclick="next_word()"/>
