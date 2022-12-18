@@ -3,7 +3,6 @@ const map = new Map(); //new map object
 const lettersLeft = []; //makes a programmic "bag" of tiles to refer to for picking random tiles from 
 const rackOfLetters = [] //rack that holds the letters
 var score = 0; //game score
-const currentWord = [' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ']
 
 //makes a map of all of the letters with their information in a object
 map.set('a',{value: 1, tiles: 9, background: "Scrabble_Tile_A.jpg"});
@@ -61,12 +60,15 @@ for(let i = 0; i < 7; i++){
 $('#TilesLeft').html(`Tiles Left: ${lettersLeft.length}`);
 
 $('.Tile').draggable({ revert: "invalid" }); //draggable for all the tiles
+
 $('.Slot').droppable({
     accept: '.Tile:not(.visited)'
 }); //normal board space
+
 $('.DoubleSlot').droppable({
     accept: '.Tile:not(.visited)'
 }); //double board space
+
 $('#tile_rack').droppable({
     accept: '.Tile:not(.onRack)'
 }); // so you can put a tile back on the rack
@@ -135,7 +137,7 @@ function next_word(){
             rackOfLetters.push(getRandomLetter());
             let letter_value = rackOfLetters[rackOfLetters.length - 1];
             let letter_bg = map.get(rackOfLetters[rackOfLetters.length - 1]).background;
-            $('#tile_rack').append(`<div style='background-image: url("tiles/${letter_bg}")' class='Tile' value='${letter_value}'></div>`);
+            $('#tile_rack').append(`<div style='background-image: url("tiles/${letter_bg}")' class='Tile onRack' value='${letter_value}'></div>`);
         }
     }
     $('.Tile').draggable({ revert: "invalid" });
