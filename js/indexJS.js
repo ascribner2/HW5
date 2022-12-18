@@ -1,3 +1,9 @@
+/*
+Name: Aidan Scribner
+Email: Aidan_Scribner@student.uml.edu
+Student ID: 01808608
+*/
+
 const letterArr = ['a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z',' ']; //maps letters to indices
 const map = new Map(); //new map object
 const lettersLeft = []; //makes a programmic "bag" of tiles to refer to for picking random tiles from 
